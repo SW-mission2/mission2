@@ -16,10 +16,10 @@ pipeline{
         stage('Test'){
             steps {
                 script {
-                    sh 'javac -encoding UTF-8 -d classes test/*.java'
                     // JUnit 5 테스트 실행을 위한 classpath 설정
                     def classpath = "classes:lib/*:path/to/plugins/*.jar"
                     // JUnit 5 테스트 실행
+                    sh "javac -cp ${classpath} -encoding UTF-8 -d classes test/*.java"
                     sh "java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
                 }
             }
