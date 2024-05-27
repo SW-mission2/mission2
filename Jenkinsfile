@@ -10,14 +10,14 @@ pipeline{
         stage('Build'){
             steps{
             // Java 파일들을 컴파일하여 생성된 클래스 파일을 classes 디렉토리에 저장
-            sh 'javac -encoding UTF-8 -d classes src/**/*.java'
+            sh 'javac -encoding UTF-8 -d classes src/*.java'
             }
         }
         stage('Test'){
             steps {
                 script {
                     // JUnit 5 테스트 실행을 위한 classpath 설정
-                    def classpath = "classes:lib/*:path/to/plugins/junit-platform-console-standalone-1.7.1.jar"
+                    def classpath = "classes:test:lib/*:path/to/plugins/junit-platform-console-standalone-1.7.1.jar"
                     // JUnit 5 테스트 실행
                     sh 'java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt'
                 }
