@@ -16,9 +16,9 @@ pipeline{
         stage('Test'){
             steps {
                 // JUnit 5 테스트 실행을 위한 classpath 설정
-                def classpath = "classes;lib/;path/to/plugins/junit-platform-console-standalone-1.7.1.jar"
+                def classpath = "classes:lib/*:path/to/plugins/junit-platform-console-standalone-1.7.1.jar"
                 // JUnit 5 테스트 실행
-                bat 'java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt'
+                sh 'java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt'
             }
         }
         post{
