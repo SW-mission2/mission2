@@ -19,7 +19,7 @@ pipeline{
                     // JUnit 5 테스트 실행을 위한 classpath 설정
                     //def classpath = "classes:lib/*:path/to/plugins"
                     // JUnit 5 테스트 실행
-                    sh "javac -cp plugins/junit-jupiter-api-5.8.1.jar -encoding UTF-8 -d classes test/*.java"
+                    sh "javac -cp plugins/junit-jupiter-api-5.8.1.jar -encoding UTF-8 -d classes src/*.java test/*.java"
                     sh "java -cp plugins/junit-platform-console-standalone-1.7.1.jar org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
                 }
             }
