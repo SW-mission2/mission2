@@ -78,11 +78,31 @@ class BookManagerTest extends BookManager {
         bm.addbook("10", "정보보안", "Joe", 2024);
         bm.addbook("4", "AR/VR", "Chloe", 2021);
 
+        // search_bs 함수 실행 시간 측정
+        long startTime_bs = System.nanoTime();
         try{
-            bm.search_bs("9", bm.bookstorage);
+            bm.search_bs("4", bm.bookstorage);
         }
         catch(NoSuchElementException e) {
             System.out.println("해당 ID의 도서를 찾을 수 없습니다.");
         }
+        long endTime_bs = System.nanoTime();
+        long duration_bs = endTime_bs - startTime_bs;
+
+        System.out.println("Execution time: " + duration_bs + " nanoseconds");
+
+        // searchbook 함수 실행 시간 측정
+        long startTime = System.nanoTime();
+        try {
+            bm.searchbook("4");
+        }
+        catch(NoSuchElementException e) {
+            System.out.println("검색된 도서가 없습니다.");
+        }
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        System.out.println("Execution time: " + duration + " nanoseconds");
+
     }
 }
