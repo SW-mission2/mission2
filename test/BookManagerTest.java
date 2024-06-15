@@ -77,6 +77,7 @@ class BookManagerTest extends BookManager {
         bm.addbook("7", "미움받을 용기", "Lee", 2020);
         bm.addbook("10", "정보보안", "Joe", 2024);
         bm.addbook("4", "AR/VR", "Chloe", 2021);
+        bm.addbook("9", "best assay", "Jessica", 2022);
 
         // search_bs 함수 실행 시간 측정
         long startTime_bs = System.nanoTime();
