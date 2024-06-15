@@ -1,5 +1,6 @@
 import java.lang.module.FindException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -36,6 +37,8 @@ public class BookManager {
         bookstorage.add(book);
         System.out.println(book.printbook()+"도서가 추가되었습니다.");
     }
+
+    // 기본 탐색 함수
     public void searchbook(String id) {
         Book book = bookstorage.stream().filter(x -> x.getId().equals(id)).findFirst().orElseThrow(() -> new NoSuchElementException("검색된 도서가 없습니다."));
         System.out.println("검색 결과:\n"+book.printbook());
@@ -44,5 +47,46 @@ public class BookManager {
         Book book = bookstorage.stream().filter(x -> x.getId().equals(id)).findFirst().orElseThrow(() -> new NoSuchElementException("해당 ID("+id+")의 도서를 찾을 수 없습니다."));
         bookstorage.remove(book);
         System.out.println(book.printbook()+"도서를 삭제하였습니다.");
+    }
+
+    // List<Book> 타입으로 저장된 bookstoarge를 int[] 타입으로 변환하는 함수
+    // 책 고유 id를 integer로 저장
+    public int[] convert_to_int_list(List<Book> bookstorage) {
+        int[] intArray = new int[bookstorage.size()];
+
+        for (int i = 0; i < bookstorage.size(); i++) {
+            intArray[i] = Integer.parseInt(bookstorage.get(i).getId());
+        }
+        return intArray;
+    }
+
+    // 책 고유 id로 이진탐색하는 함수
+    // 반복문 방식으로 구현
+    public boolean search_bs(String target_id, List<Book> bookstorage) {
+        int left = 0;
+        int right = bookstorage.size() - 1;
+        int mid;
+        int [] intArray = convert_to_int_list(bookstorage);
+        int wrapped_target_id = Integer.parseInt(target_id);
+
+        // 이진탐색 전, 배열 오름차순 정렬
+        Arrays.sort(intArray);
+
+        // 이진 탐색
+        while (left <= right) {
+            mid = (left + right) / 2;
+            if (intArray[mid] < wrapped_target_id)
+                left = mid + 1;
+            else if (intArray[mid] > wrapped_target_id)
+                right = mid - 1;
+            else {
+                // target_id 찾음
+                System.out.println("==이진 탐색==");
+                System.out.println("검색 결과: ID " + intArray[mid] + " 도서 찾음");
+                return true;
+            }
+        }
+        // target_id가 bookstoarge 리스트에 존재하지 않는 경우
+        throw new NoSuchElementException("해당 ID의 도서를 찾을 수 없습니다.");
     }
 }
