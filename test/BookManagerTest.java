@@ -68,4 +68,21 @@ class BookManagerTest extends BookManager {
             System.out.println("검색된 도서가 없습니다.");
         }
     }
+
+    @Test
+    void testSearchBS() {
+        bm.addbook("1", "자바 기초", "Jane", 2021);
+        bm.addbook("2", "소프트웨어 공학", "Tom", 2014);
+        bm.addbook("3", "분산 컴퓨팅", "Yoon", 2024);
+        bm.addbook("7", "미움받을 용기", "Lee", 2020);
+        bm.addbook("10", "정보보안", "Joe", 2024);
+        bm.addbook("4", "AR/VR", "Chloe", 2021);
+
+        try{
+            bm.search_bs("9", bm.bookstorage);
+        }
+        catch(NoSuchElementException e) {
+            System.out.println("해당 ID의 도서를 찾을 수 없습니다.");
+        }
+    }
 }
