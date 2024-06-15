@@ -82,7 +82,7 @@ class BookManagerTest extends BookManager {
         // search_bs 함수 실행 시간 측정
         long startTime_bs = System.nanoTime();
         try{
-            bm.search_bs("4", bm.bookstorage);
+            bm.search_bs("9", bm.bookstorage);
         }
         catch(NoSuchElementException e) {
             System.out.println("해당 ID의 도서를 찾을 수 없습니다.");
@@ -95,7 +95,7 @@ class BookManagerTest extends BookManager {
         // searchbook 함수 실행 시간 측정
         long startTime = System.nanoTime();
         try {
-            bm.searchbook("4");
+            bm.searchbook("9");
         }
         catch(NoSuchElementException e) {
             System.out.println("검색된 도서가 없습니다.");
