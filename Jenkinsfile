@@ -31,9 +31,7 @@ pipeline {
                     // 클래스패스 설정
                     def classpath = "classes;${junitJarPath}"
                     // JUnit 5 테스트 실행
-                    bat """
-                        java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --class-path classes --scan-class-path --details=summary --details-theme=ascii > test_results.txt
-                    """
+                    bat "java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
                 }
             }
 
