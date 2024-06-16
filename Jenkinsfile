@@ -18,7 +18,7 @@ pipeline {
         	//<source_files> in Jenkins workspace
         	//Jenkins workspace : 협업자 각 개인의 local
         	//Windows와 Mac에 따라 분기
-        	bat 'javac -encoding UTF-8 -d classes src/*.java test/*.java'
+        	bat 'javac -encoding UTF-8 -d classes src/*.java'
             
 
            
@@ -42,7 +42,10 @@ pipeline {
                     // JUnit 플랫폼 콘솔 런처 JAR 파일 경로 설정
                     def junitJarPath = "plugins/junit-platform-console-standalone-1.7.1.jar"
                     // 성능 테스트 실행
-                    bat "java -cp classes;${junitJarPath} SearchPerformanceTest > Performance_test.txt"
+                    bat """
+                        javac -encoding UTF-8 -cp classes;${junitJarPath} -d classes test\\SearchPerformanceTest.java
+                        java -cp classes;${junitJarPath} SearchPerformanceTest > Performance_test.txt
+                    """
                 }
             }
         }
