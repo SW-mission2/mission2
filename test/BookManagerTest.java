@@ -5,7 +5,7 @@ import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BookManagerTest extends BookManager {
     public BookManager bm;
@@ -77,6 +77,13 @@ class BookManagerTest extends BookManager {
         bm.addbook("7", "미움받을 용기", "Lee", 2020);
         bm.addbook("10", "정보보안", "Joe", 2024);
         bm.addbook("4", "AR/VR", "Chloe", 2021);
+        
+        assertTrue(bm.search_bs("1", bm.bookstorage));
+        assertTrue(bm.search_bs("2", bm.bookstorage));
+        assertTrue(bm.search_bs("3", bm.bookstorage));
+        assertTrue(bm.search_bs("7", bm.bookstorage));
+        assertTrue(bm.search_bs("10", bm.bookstorage));
+        assertTrue(bm.search_bs("4", bm.bookstorage));
 
         try{
             bm.search_bs("9", bm.bookstorage);
