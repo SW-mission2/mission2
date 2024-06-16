@@ -1,40 +1,69 @@
-pipeline{
+pipeline {
     agent any
-    stages{
+    
+    stages {
+        
         stage('Checkout'){
-            steps {
-            // 소스코드 체크아웃
+            steps{
+            //Jenkins SCM 설정을 사용
+            //jenkins server approachs remote repository
+            //소스코드 Checkout 후 workspace에 저장
             checkout scm
             }
+
         }
         stage('Build'){
-            steps{
-            // Java 파일들을 컴파일하여 생성된 클래스 파일을 classes 디렉토리에 저장
-            sh 'javac -encoding UTF-8 -d classes src/*.java'
-            }
+        	steps{
+        	//javac -d <output_directory> <source_files>
+        	//<source_files> in Jenkins workspace
+        	//Jenkins workspace : 협업자 각 개인의 local
+        	bat 'javac -encoding UTF-8 -d classes src/*.java'
+            
+
+           
+        	}
+  
         }
         stage('Test'){
+            steps{
+              script {
+                    // JUnit 플랫폼 콘솔 런처 JAR 파일 경로 설정
+                    def junitJarPath = "plugins/junit-platform-console-standalone-1.7.1.jar"
+                    // JUnit 5 테스트 실행
+                    bat "java -cp classes;${junitJarPath} org.junit.platform.console.ConsoleLauncher --scan-classpath > Junit_test.txt"
+                }
+            }
+
+        }
+        stage('Performance_Test') {
             steps {
                 script {
-                    // JUnit 5 테스트 실행을 위한 classpath 설정
-                    //def classpath = "classes:lib/*:path/to/plugins"
-                    // JUnit 5 테스트 실행
-                    sh "javac -cp plugins/junit-jupiter-api-5.8.1.jar -encoding UTF-8 -d classes src/*.java test/*.java"
-                    sh "java -cp plugins/junit-platform-console-standalone-1.7.1.jar org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
+                    // JUnit 플랫폼 콘솔 런처 JAR 파일 경로 설정
+                    def junitJarPath = "plugins/junit-platform-console-standalone-1.7.1.jar"
+                    // 성능 테스트 실행
+                    bat """
+                        javac -encoding UTF-8 -cp classes;${junitJarPath} -d classes test/SearchPerformanceTest.java
+                        java -cp classes;${junitJarPath} SearchPerformanceTest > Performance_test.txt
+                    """
                 }
             }
         }
+        
     }
     post{
-        always{
-            // 테스트 결과 파일을 저장하기 위해 아카이브
-            archiveArtifacts 'test_results.txt'
+            always{
+                // 테스트 결과 파일을 저장하기 위해 아카이브
+            	archiveArtifacts 'Junit_test.txt'
+                archiveArtifacts 'Performance_test.txt'
+            }
+            failure{
+                echo 'Build or Test failed'
+                
+            }
+            success{
+                echo 'Build and Test succeeded' 
+            }
+
         }
-        failure{
-            echo 'Build or test failed'
-        }
-        success{
-            echo 'Build and test succeeded'
-        }
-    }
+  
 }
