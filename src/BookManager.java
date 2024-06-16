@@ -51,38 +51,45 @@ public class BookManager {
 
     // List<Book> 타입으로 저장된 bookstoarge를 int[] 타입으로 변환하는 함수
     // 책 고유 id를 integer로 저장
-    public int[] convert_to_int_list(List<Book> bookstorage) {
+    // 정렬도 해당 method에서 하도록 추가함
+    public int[] convert_to_int_ordered_list(List<Book> bookstorage) {
         int[] intArray = new int[bookstorage.size()];
 
         for (int i = 0; i < bookstorage.size(); i++) {
             intArray[i] = Integer.parseInt(bookstorage.get(i).getId());
         }
+        Arrays.sort(intArray);
         return intArray;
     }
 
     // 책 고유 id로 이진탐색하는 함수
     // 반복문 방식으로 구현
-    public boolean search_bs(String target_id, List<Book> bookstorage) {
-        int left = 0;
+    public boolean search_bs(String target_id, int[] sortedArray) {//인자 'List<Book>타입 bookstorage' 에서 'int[]타입 sortedArray'로 변경
+    	int left = 0;
         int right = bookstorage.size() - 1;
         int mid;
-        int [] intArray = convert_to_int_list(bookstorage);
+        //int [] intArray = convert_to_int_list(bookstorage);
         int wrapped_target_id = Integer.parseInt(target_id);
 
+        /*
+        이미 정렬된 배열을 인자로 받았음
+        -------
         // 이진탐색 전, 배열 오름차순 정렬
-        Arrays.sort(intArray);
+        Arrays.sort(intArray); 
+        -------
+        */
 
         // 이진 탐색
         while (left <= right) {
             mid = (left + right) / 2;
-            if (intArray[mid] < wrapped_target_id)
+            if (sortedArray[mid] < wrapped_target_id)
                 left = mid + 1;
-            else if (intArray[mid] > wrapped_target_id)
+            else if (sortedArray[mid] > wrapped_target_id)
                 right = mid - 1;
             else {
                 // target_id 찾음
                 System.out.println("==이진 탐색==");
-                System.out.println("검색 결과: ID " + intArray[mid] + " 도서 찾음");
+                System.out.println("검색 결과: ID " + sortedArray[mid] + " 도서 찾음");
                 return true;
             }
         }
