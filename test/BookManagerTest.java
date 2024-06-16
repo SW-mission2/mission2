@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.util.Arrays;
 import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -77,17 +77,20 @@ class BookManagerTest extends BookManager {
         bm.addbook("7", "미움받을 용기", "Lee", 2020);
         bm.addbook("10", "정보보안", "Joe", 2024);
         bm.addbook("4", "AR/VR", "Chloe", 2021);
+        
+        // Convert and sort data for binary search
+        int[] sortedArray = bm.convert_to_int_ordered_list(bm.bookstorage);
 
         
-        assertTrue(bm.search_bs("1", bm.bookstorage));
-        assertTrue(bm.search_bs("2", bm.bookstorage));
-        assertTrue(bm.search_bs("3", bm.bookstorage));
-        assertTrue(bm.search_bs("7", bm.bookstorage));
-        assertTrue(bm.search_bs("10", bm.bookstorage));
-        assertTrue(bm.search_bs("4", bm.bookstorage));
+        assertTrue(bm.search_bs("1", sortedArray));
+        assertTrue(bm.search_bs("2", sortedArray));
+        assertTrue(bm.search_bs("3", sortedArray));
+        assertTrue(bm.search_bs("7", sortedArray));
+        assertTrue(bm.search_bs("10", sortedArray));
+        assertTrue(bm.search_bs("4", sortedArray));
 
     try{
-            bm.search_bs("9", bm.bookstorage);
+            bm.search_bs("9", sortedArray);
         }
         catch(NoSuchElementException e) {
             System.out.println("해당 ID의 도서를 찾을 수 없습니다.");
