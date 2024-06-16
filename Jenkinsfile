@@ -20,7 +20,8 @@ pipeline {
         	//Windows와 Mac에 따라 분기
         	
         	bat 'javac -encoding UTF-8 -d classes src/*.java'
-            bat 'javac -encoding UTF-8 -d classes test/SearchPerformanceTest.java'
+            bat 'javac -encoding UTF-8 -cp classes -d classes test/SearchPerformanceTest.java'
+
            
         	}
   
