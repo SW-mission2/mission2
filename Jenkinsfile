@@ -18,9 +18,6 @@ pipeline {
         	//<source_files> in Jenkins workspace
         	//Jenkins workspace : 협업자 각 개인의 local
         	bat 'javac -encoding UTF-8 -d classes src/*.java'
-            
-
-           
         	}
   
         }
