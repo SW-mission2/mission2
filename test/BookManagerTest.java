@@ -5,7 +5,7 @@ import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BookManagerTest extends BookManager {
     public BookManager bm;
@@ -77,33 +77,21 @@ class BookManagerTest extends BookManager {
         bm.addbook("7", "미움받을 용기", "Lee", 2020);
         bm.addbook("10", "정보보안", "Joe", 2024);
         bm.addbook("4", "AR/VR", "Chloe", 2021);
-        bm.addbook("9", "best assay", "Jessica", 2022);
 
-        // search_bs 함수 실행 시간 측정
-        long startTime_bs = System.nanoTime();
-        try{
+        
+        assertTrue(bm.search_bs("1", bm.bookstorage));
+        assertTrue(bm.search_bs("2", bm.bookstorage));
+        assertTrue(bm.search_bs("3", bm.bookstorage));
+        assertTrue(bm.search_bs("7", bm.bookstorage));
+        assertTrue(bm.search_bs("10", bm.bookstorage));
+        assertTrue(bm.search_bs("4", bm.bookstorage));
+
+    try{
             bm.search_bs("9", bm.bookstorage);
         }
         catch(NoSuchElementException e) {
             System.out.println("해당 ID의 도서를 찾을 수 없습니다.");
         }
-        long endTime_bs = System.nanoTime();
-        long duration_bs = endTime_bs - startTime_bs;
-
-        System.out.println("Execution time: " + duration_bs + " nanoseconds");
-
-        // searchbook 함수 실행 시간 측정
-        long startTime = System.nanoTime();
-        try {
-            bm.searchbook("9");
-        }
-        catch(NoSuchElementException e) {
-            System.out.println("검색된 도서가 없습니다.");
-        }
-        long endTime = System.nanoTime();
-        long duration = endTime - startTime;
-
-        System.out.println("Execution time: " + duration + " nanoseconds");
 
     }
 }
