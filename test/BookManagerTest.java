@@ -89,7 +89,7 @@ class BookManagerTest extends BookManager {
         assertTrue(bm.search_bs("10", sortedArray));
         assertTrue(bm.search_bs("4", sortedArray));
 
-    try{
+        try{
             bm.search_bs("9", sortedArray);
         }
         catch(NoSuchElementException e) {
