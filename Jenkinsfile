@@ -25,15 +25,12 @@ pipeline {
         }
         stage('Test'){
             steps{
-            
-              
-                
-
+               // JUnit 플랫폼 콘솔 런처 JAR 파일 경로 설정
+                def junitJarPath = "${WORKSPACE}\\plugins\\junit-platform-console-standalone-1.7.1.jar"
+                // 클래스패스 설정
+                def classpath = "classes;${junitJarPath}"
                 // JUnit 5 테스트 실행
-                bat """
-                    java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt
-                """
-			
+                 bat "java -cp ${classpath} org.junit.platform.console.ConsoleLauncher --class-path classes --scan-class-path --details-theme=summary > test_results.txt"
             }
 
         }
