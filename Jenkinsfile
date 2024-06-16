@@ -37,12 +37,7 @@ pipeline {
             }
 
         }
-        stage('Performance_Test'){
-            steps{
-               
-            }
-
-        }
+       
         post{
             always{
                 // 테스트 결과 파일을 저장하기 위해 아카이브
