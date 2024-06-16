@@ -29,7 +29,7 @@ pipeline {
                     // JUnit 플랫폼 콘솔 런처 JAR 파일 경로 설정
                     def junitJarPath = "plugins/junit-platform-console-standalone-1.7.1.jar"
                     // JUnit 5 테스트 실행
-                    bat "java -cp classes;${junitJarPath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
+                    bat "java -cp classes;${junitJarPath} org.junit.platform.console.ConsoleLauncher --scan-classpath > Junit_test.txt"
                 }
             }
 
@@ -40,7 +40,7 @@ pipeline {
                     // JUnit 플랫폼 콘솔 런처 JAR 파일 경로 설정
                     def junitJarPath = "plugins/junit-platform-console-standalone-1.7.1.jar"
                     // 성능 테스트 실행
-                    bat "java -cp classes;${junitJarPath} test.SearchPerformanceTest > performance_results.txt"
+                    bat "java -cp classes;${junitJarPath} test.SearchPerformanceTest > Performance_test.txt"
                 }
             }
         }
