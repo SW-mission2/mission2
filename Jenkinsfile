@@ -28,14 +28,22 @@ pipeline {
               script {
                     // JUnit 플랫폼 콘솔 런처 JAR 파일 경로 설정
                     def junitJarPath = "plugins/junit-platform-console-standalone-1.7.1.jar"
-                    // 성능 테스트 실행
-                    bat "java -cp classes;${junitJarPath} your.package.SearchPerformanceTest > performance_results.txt"
-                
+                    // JUnit 5 테스트 실행
+                    bat "java -cp classes;${junitJarPath} org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
                 }
             }
 
         }
-       
+        stage('Performance_Test') {
+            steps {
+                script {
+                    // JUnit 플랫폼 콘솔 런처 JAR 파일 경로 설정
+                    def junitJarPath = "plugins/junit-platform-console-standalone-1.7.1.jar"
+                    // 성능 테스트 실행
+                    bat "java -cp classes;${junitJarPath} test.SearchPerformanceTest > performance_results.txt"
+                }
+            }
+        }
         
     }
     post{
