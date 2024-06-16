@@ -77,6 +77,7 @@ class BookManagerTest extends BookManager {
         bm.addbook("7", "미움받을 용기", "Lee", 2020);
         bm.addbook("10", "정보보안", "Joe", 2024);
         bm.addbook("4", "AR/VR", "Chloe", 2021);
+
         
         assertTrue(bm.search_bs("1", bm.bookstorage));
         assertTrue(bm.search_bs("2", bm.bookstorage));
@@ -85,11 +86,12 @@ class BookManagerTest extends BookManager {
         assertTrue(bm.search_bs("10", bm.bookstorage));
         assertTrue(bm.search_bs("4", bm.bookstorage));
 
-        try{
+    try{
             bm.search_bs("9", bm.bookstorage);
         }
         catch(NoSuchElementException e) {
             System.out.println("해당 ID의 도서를 찾을 수 없습니다.");
         }
+
     }
 }
